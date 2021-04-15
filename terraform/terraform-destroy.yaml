@@ -1,0 +1,12 @@
+- op: add
+  path: /spec/delete/-
+  value:
+    name: terraform-destroy
+    image:
+      url: hashicorp/terraform
+      version: 0.15.0-rc1
+    command: terraform
+    workDir: ${{ .Inputs.workDir }}
+    args:
+      - destroy
+      - -auto-approve

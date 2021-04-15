@@ -1,0 +1,35 @@
+- op: add
+  path: /spec/environment/TF_IN_AUTOMATION
+  value: "true"
+
+- op: add
+  path: /spec/environment/TF_PLAN_FILE
+  value: "tfplan"
+
+- op: add
+  path: /spec/upsert/-
+  value:
+    name: terraform-init-upsert
+    image:
+      url: hashicorp/terraform
+      version: 0.15.0-rc1
+    command: terraform
+    workDir: ${{ .Inputs.workDir }}
+    args:
+      - init
+      - -backend-config=bucket=${{ .Inputs.terraform.bucket }}
+      - -backend-config=prefix=${{ .Inputs.terraform.prefix }}
+
+- op: add
+  path: /spec/delete/-
+  value:
+    name: terraform-init-delete
+    image:
+      url: hashicorp/terraform
+      version: 0.15.0-rc1
+    command: terraform
+    workDir: ${{ .Inputs.workDir }}
+    args:
+      - init
+      - -backend-config=bucket=${{ .Inputs.terraform.bucket }}
+      - -backend-config=prefix=${{ .Inputs.terraform.prefix }}

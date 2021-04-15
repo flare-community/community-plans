@@ -1,0 +1,15 @@
+- op: add
+  path: /spec/upsert/-
+  value:
+    name: terraform-output
+    image:
+      url: hashicorp/terraform
+      version: 0.15.0-rc1
+    workDir: ${{ .Inputs.workDir }}
+    command: /bin/sh
+    args:
+      - -c
+      - |
+        set -eu
+        terraform output -json > outputs.json
+    outputs: outputs.json

@@ -1,0 +1,40 @@
+namePrefix: terraform
+
+bases:
+  - ../gcp
+
+patchesJson6902:
+  - target:
+      group: plans.flare.engineering
+      version: v1alpha1
+      kind: Plan
+      name: -plan
+    path: terraform-init.yaml
+
+  - target:
+      group: plans.flare.engineering
+      version: v1alpha1
+      kind: Plan
+      name: -plan
+    path: terraform-plan.yaml
+
+  - target:
+      group: plans.flare.engineering
+      version: v1alpha1
+      kind: Plan
+      name: -plan
+    path: terraform-apply.yaml
+
+  - target:
+      group: plans.flare.engineering
+      version: v1alpha1
+      kind: Plan
+      name: -plan
+    path: terraform-output.yaml
+
+  - target:
+      group: plans.flare.engineering
+      version: v1alpha1
+      kind: Plan
+      name: -plan
+    path: terraform-destroy.yaml

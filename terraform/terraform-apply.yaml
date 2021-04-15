@@ -1,0 +1,14 @@
+- op: add
+  path: /spec/upsert/-
+  value:
+    name: terraform-apply
+    image:
+      url: hashicorp/terraform
+      version: 0.15.0-rc1
+    command: terraform
+    workDir: ${{ .Inputs.workDir }}
+    args:
+      - apply
+      - -input=false
+      - -auto-approve
+      - $TF_PLAN_FILE
