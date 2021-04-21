@@ -3,4 +3,3 @@ kind: Plan
 metadata:
   name: -plan
 spec:
-  description: base

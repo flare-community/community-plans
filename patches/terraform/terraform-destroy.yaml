@@ -1,15 +1,15 @@
-- op: add
-  path: /spec/delete/-
-  value:
-    #########################
-    ### TERRAFORM DESTROY ###
-    #########################
-    name: terraform-destroy
-    image:
-      url: hashicorp/terraform
-      version: 0.15.0-rc1
-    command: terraform
-    workDir: ${{ .Inputs.workDir }}
-    args:
-      - destroy
-      - -auto-approve
+apiVersion: plans.flare.engineering/v1alpha1
+kind: Plan
+metadata:
+  name: -plan
+spec:
+  delete:
+    - name: terraform-destroy
+      image:
+        url: hashicorp/terraform
+        version: 0.15.0-rc1
+      command: terraform
+      workDir: ${{ .Inputs.workDir }}
+      args:
+        - destroy
+        - -auto-approve

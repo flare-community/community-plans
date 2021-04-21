@@ -1,41 +1,30 @@
-- op: add
-  path: /spec/environment/TF_IN_AUTOMATION
-  value: "true"
-
-- op: add
-  path: /spec/environment/TF_PLAN_FILE
-  value: "tfplan"
-
-- op: add
-  path: /spec/upsert/-
-  value:
-    #########################
-    ###   TERRAFORM INIT  ###
-    #########################
-    name: terraform-init
-    image:
-      url: hashicorp/terraform
-      version: 0.15.0-rc1
-    command: terraform
-    workDir: ${{ .Inputs.workDir }}
-    args:
-      - init
-      - -backend-config=bucket=${{ .Inputs.terraform.bucket }}
-      - -backend-config=prefix=${{ .Inputs.terraform.prefix }}
-
-- op: add
-  path: /spec/delete/-
-  value:
-    #########################
-    ###   TERRAFORM INIT  ###
-    #########################
-    name: terraform-init
-    image:
-      url: hashicorp/terraform
-      version: 0.15.0-rc1
-    command: terraform
-    workDir: ${{ .Inputs.workDir }}
-    args:
-      - init
-      - -backend-config=bucket=${{ .Inputs.terraform.bucket }}
-      - -backend-config=prefix=${{ .Inputs.terraform.prefix }}
+apiVersion: plans.flare.engineering/v1alpha1
+kind: Plan
+metadata:
+  name: -plan
+spec:
+  environment:
+    TF_IN_AUTOMATION: "true"
+    TF_PLAN_FILE: "tfplan"
+  upsert:
+    - name: terraform-init
+      image:
+        url: hashicorp/terraform
+        version: 0.15.0-rc1
+      command: terraform
+      workDir: ${{ .Inputs.workDir }}
+      args:
+        - init
+        - -backend-config=bucket=${{ .Inputs.terraform.bucket }}
+        - -backend-config=prefix=${{ .Inputs.terraform.prefix }}
+  delete:
+    - name: terraform-init
+      image:
+        url: hashicorp/terraform
+        version: 0.15.0-rc1
+      command: terraform
+      workDir: ${{ .Inputs.workDir }}
+      args:
+        - init
+        - -backend-config=bucket=${{ .Inputs.terraform.bucket }}
+        - -backend-config=prefix=${{ .Inputs.terraform.prefix }}

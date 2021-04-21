@@ -1,0 +1,245 @@
+{
+  "definitions": {
+    "engineering.flare.plans.v1alpha1.Plan": {
+      "description": "Plan is the Schema for the plans API",
+      "properties": {
+        "apiVersion": {
+          "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+          "type": "string"
+        },
+        "kind": {
+          "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+          "type": "string"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "spec": {
+          "description": "PlanSpec defines the desired state of Plan",
+          "properties": {
+            "delete": {
+              "description": "Delete commands to be run on deletion",
+              "items": {
+                "description": "Step defines a step to executed within the plan",
+                "properties": {
+                  "args": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "command": {
+                    "minLength": 0,
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "image": {
+                    "description": "Image to be used when executing this plan",
+                    "properties": {
+                      "url": {
+                        "description": "Image url",
+                        "minLength": 0,
+                        "type": "string"
+                      },
+                      "version": {
+                        "description": "Image version",
+                        "minLength": 0,
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "url",
+                      "version"
+                    ],
+                    "type": "object"
+                  },
+                  "name": {
+                    "minLength": 0,
+                    "type": "string"
+                  },
+                  "outputs": {
+                    "type": "string"
+                  },
+                  "workDir": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "command",
+                  "image",
+                  "name"
+                ],
+                "type": "object"
+              },
+              "type": "array",
+              "x-kubernetes-patch-merge-key": "name",
+              "x-kubernetes-patch-strategy": "merge"
+            },
+            "description": {
+              "description": "Brief description about its purpose",
+              "type": "string"
+            },
+            "environment": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "description": "Plan environment",
+              "type": "object"
+            },
+            "upsert": {
+              "description": "Upsert commands to be run on creation",
+              "items": {
+                "description": "Step defines a step to executed within the plan",
+                "properties": {
+                  "args": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "command": {
+                    "minLength": 0,
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "image": {
+                    "description": "Image to be used when executing this plan",
+                    "properties": {
+                      "url": {
+                        "description": "Image url",
+                        "minLength": 0,
+                        "type": "string"
+                      },
+                      "version": {
+                        "description": "Image version",
+                        "minLength": 0,
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "url",
+                      "version"
+                    ],
+                    "type": "object"
+                  },
+                  "name": {
+                    "minLength": 0,
+                    "type": "string"
+                  },
+                  "outputs": {
+                    "type": "string"
+                  },
+                  "workDir": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "command",
+                  "image",
+                  "name"
+                ],
+                "type": "object"
+              },
+              "type": "array",
+              "x-kubernetes-patch-merge-key": "name",
+              "x-kubernetes-patch-strategy": "merge"
+            }
+          },
+          "type": "object"
+        },
+        "status": {
+          "description": "PlanStatus defines the observed state of Plan",
+          "properties": {
+            "accountId": {
+              "description": "Plan's owner accountId",
+              "type": "string"
+            },
+            "conditions": {
+              "description": "Conditions represent the latest available observations of an object's state",
+              "items": {
+                "description": "PlanCondition represents the latest view of the Plan",
+                "properties": {
+                  "lastTransitionTime": {
+                    "description": "Last time the condition transitioned from one status to another.",
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "lastUpdateTime": {
+                    "description": "Last time we updated the condition.",
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "message": {
+                    "description": "Human-readable message indicating details about last transition.",
+                    "type": "string"
+                  },
+                  "reason": {
+                    "description": "Unique, one-word, CamelCase reason for the condition's last transition.",
+                    "type": "string"
+                  },
+                  "status": {
+                    "description": "Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions",
+                    "type": "string"
+                  },
+                  "type": {
+                    "description": "Type is the type of the condition. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "status",
+                  "type"
+                ],
+                "type": "object"
+              },
+              "type": "array",
+              "x-kubernetes-patch-merge-key": "name",
+              "x-kubernetes-patch-strategy": "merge"
+            },
+            "generationId": {
+              "description": "Latest generation id that triggered a successful reconciliation",
+              "format": "int64",
+              "type": "integer"
+            },
+            "graphId": {
+              "description": "Plan's owner accountId",
+              "type": "string"
+            },
+            "groupId": {
+              "description": "Plan's GroupID",
+              "type": "string"
+            },
+            "repositoryId": {
+              "description": "Git repository id that created this plan",
+              "type": "string"
+            },
+            "sha": {
+              "description": "Git sha that created this plan",
+              "type": "string"
+            },
+            "tag": {
+              "description": "Git tag that created this plan",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "spec"
+      ],
+      "type": "object",
+      "x-kubernetes-group-version-kind": [
+        {
+          "group": "plans.flare.engineering",
+          "kind": "Plan",
+          "version": "v1alpha1"
+        }
+      ]
+    }
+  }
+}

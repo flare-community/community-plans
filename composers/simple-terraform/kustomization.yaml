@@ -1,7 +1,10 @@
 namePrefix: terraform
 
-bases:
-  - ../../bases/empty
+resources:
+  - empty.yaml
+
+openapi:
+  path: ../../openapis/plans-v1alpha1.json
 
 patches:
   - target:
@@ -9,28 +12,7 @@ patches:
       version: v1alpha1
       kind: Plan
       name: -plan
-    path: ../../patches/gcloud/gcloud-login.yaml
-
-  - target:
-      group: plans.flare.engineering
-      version: v1alpha1
-      kind: Plan
-      name: -plan
-    path: ../../patches/terraform/terraform-init.yaml
-
-  - target:
-      group: plans.flare.engineering
-      version: v1alpha1
-      kind: Plan
-      name: -plan
-    path: ../../patches/terraform/terraform-plan.yaml
-
-  - target:
-      group: plans.flare.engineering
-      version: v1alpha1
-      kind: Plan
-      name: -plan
-    path: ../../patches/terraform/terraform-apply.yaml
+    path: ../../patches/terraform/terraform-destroy.yaml
 
   - target:
       group: plans.flare.engineering
@@ -44,4 +26,25 @@ patches:
       version: v1alpha1
       kind: Plan
       name: -plan
-    path: ../../patches/terraform/terraform-destroy.yaml
+    path: ../../patches/terraform/terraform-apply.yaml
+
+  - target:
+      group: plans.flare.engineering
+      version: v1alpha1
+      kind: Plan
+      name: -plan
+    path: ../../patches/terraform/terraform-plan.yaml
+
+  - target:
+      group: plans.flare.engineering
+      version: v1alpha1
+      kind: Plan
+      name: -plan
+    path: ../../patches/terraform/terraform-init.yaml
+
+  - target:
+      group: plans.flare.engineering
+      version: v1alpha1
+      kind: Plan
+      name: -plan
+    path: ../../patches/gcloud/gcloud-login.yaml

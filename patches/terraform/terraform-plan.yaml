@@ -1,16 +1,16 @@
-- op: add
-  path: /spec/upsert/-
-  value:
-    ##########################
-    ###   TERRAFORM PLAN   ###
-    ##########################
-    name: terraform-plan
-    image:
-      url: hashicorp/terraform
-      version: 0.15.0-rc1
-    command: terraform
-    workDir: ${{ .Inputs.workDir }}
-    args:
-      - plan
-      - -input=false
-      - -out=$TF_PLAN_FILE
+apiVersion: plans.flare.engineering/v1alpha1
+kind: Plan
+metadata:
+  name: -plan
+spec:
+  upsert:
+    - name: terraform-plan
+      image:
+        url: hashicorp/terraform
+        version: 0.15.0-rc1
+      command: terraform
+      workDir: ${{ .Inputs.workDir }}
+      args:
+        - plan
+        - -input=false
+        - -out=$TF_PLAN_FILE
