@@ -1,0 +1,29 @@
+namePrefix: go-build
+
+resources:
+  - ../empty.yaml
+
+openapi:
+  path: ../../openapis/plans-v1alpha1.json
+
+patches:
+  - target:
+      group: plans.flare.engineering
+      version: v1alpha1
+      kind: Plan
+      name: -plan
+    path: ../../patches/go/build.yaml
+
+  - target:
+      group: plans.flare.engineering
+      version: v1alpha1
+      kind: Plan
+      name: -plan
+    path: ../../patches/docker/build.yaml
+
+  - target:
+      group: plans.flare.engineering
+      version: v1alpha1
+      kind: Plan
+      name: -plan
+    path: ../../patches/kustomize/build.yaml

@@ -1,0 +1,22 @@
+apiVersion: plans.flare.engineering/v1alpha1
+kind: Plan
+metadata:
+  name: go
+spec:
+  upsert:
+    - args:
+        - build
+        - -v
+      command: go
+      image:
+        url: golang
+        version: 1.15-alpine
+      name: go-build
+    - args:
+        - test
+        - -v
+      command: go
+      image:
+        url: golang
+        version: 1.15-alpine
+      name: go-test
