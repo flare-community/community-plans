@@ -1,6 +1,9 @@
 - op: add
   path: /spec/upsert/-
   value:
+    #######################
+    ### TERRAFORM APPLY ###
+    #######################
     name: terraform-apply
     image:
       url: hashicorp/terraform

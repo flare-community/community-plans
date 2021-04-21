@@ -1,6 +1,9 @@
 - op: add
   path: /spec/upsert/-
   value:
+    ##########################
+    ###  TERRAFORM OUTPUT  ###
+    ##########################
     name: terraform-output
     image:
       url: hashicorp/terraform

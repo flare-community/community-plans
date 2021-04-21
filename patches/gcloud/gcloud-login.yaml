@@ -1,13 +1,18 @@
-apiVersion: plans.flare.engineering/v1alpha1
-kind: Plan
-metadata:
-  name: -plan
-spec:
-  environment:
-    GOOGLE_APPLICATION_CREDENTIALS: "/workspace/gcp-svc-acc.json"
-    CLOUDSDK_CONFIG: "/workspace/.gcloud"
-  upsert:
-    - name: gcloud-login-upsert
+- op: add
+  path: /spec/environment/GOOGLE_APPLICATION_CREDENTIALS
+  value: "/workspace/gcp-svc-acc.json"
+
+- op: add
+  path: /spec/environment/CLOUDSDK_CONFIG
+  value: "/workspace/.gcloud"
+
+- op: add
+  path: /spec/upsert/-
+  value:
+    #######################
+    ###  GCLOUD LOGIN   ###
+    #######################
+    - name: gcloud-login
       image:
         url: google/cloud-sdk
         version: 335.0.0
@@ -19,8 +24,13 @@ spec:
           printf '%s' '${{ getCipher "gcp-terraform-service-account" }}' > $GOOGLE_APPLICATION_CREDENTIALS
           gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
 
-  delete:
-    - name: gcloud-login-delete
+- op: add
+  path: /spec/delete/-
+  value:
+    #######################
+    ###  GCLOUD LOGIN   ###
+    #######################
+    - name: gcloud-login
       image:
         url: google/cloud-sdk
         version: 335.0.0

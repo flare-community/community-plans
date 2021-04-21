@@ -9,7 +9,10 @@
 - op: add
   path: /spec/upsert/-
   value:
-    name: terraform-init-upsert
+    #########################
+    ###   TERRAFORM INIT  ###
+    #########################
+    name: terraform-init
     image:
       url: hashicorp/terraform
       version: 0.15.0-rc1
@@ -23,7 +26,10 @@
 - op: add
   path: /spec/delete/-
   value:
-    name: terraform-init-delete
+    #########################
+    ###   TERRAFORM INIT  ###
+    #########################
+    name: terraform-init
     image:
       url: hashicorp/terraform
       version: 0.15.0-rc1

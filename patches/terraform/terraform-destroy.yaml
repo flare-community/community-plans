@@ -1,6 +1,9 @@
 - op: add
   path: /spec/delete/-
   value:
+    #########################
+    ### TERRAFORM DESTROY ###
+    #########################
     name: terraform-destroy
     image:
       url: hashicorp/terraform
