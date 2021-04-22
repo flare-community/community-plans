@@ -12,7 +12,7 @@ patches:
       version: v1alpha1
       kind: Plan
       name: -plan
-    path: ../../patches/go/build.yaml
+    path: ../../patches/kustomize/build.yaml
 
   - target:
       group: plans.flare.engineering
@@ -26,4 +26,4 @@ patches:
       version: v1alpha1
       kind: Plan
       name: -plan
-    path: ../../patches/kustomize/build.yaml
+    path: ../../patches/go/build.yaml
