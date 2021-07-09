@@ -21,8 +21,8 @@ The minimum version required of Kustomize is: **Version:kustomize/v4.1.2 GitComm
 
 ## Notes
 
-When composing plans, note that you should think from a last to first perspective. Taking the **simple-go-service plan**
-as an example, note that we want the following instructions:
+When composing plans you must think from a last to first perspective. Taking the **simple-go-service plan**
+as an example, we want the following instructions:
 
     go build -> go test -> kustomize build  
     
