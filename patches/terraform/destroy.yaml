@@ -4,12 +4,14 @@ metadata:
   name: -plan
 spec:
   delete:
-    - name: terraform-destroy
+    - args:
+        - destroy
+        - -input=false
+        - -auto-approve
+      command: terraform
       image:
         url: hashicorp/terraform
-        version: 0.15.0-rc1
-      command: terraform
+        version: 0.13.5
+      condition: Environment.REPOSITORY_BRANCH == ""
+      name: terraform-destroy
       workDir: ${{ .Inputs.workDir }}
-      args:
-        - destroy
-        - -auto-approve

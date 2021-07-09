@@ -1,0 +1,71 @@
+apiVersion: plans.flare.engineering/v1alpha1
+kind: Plan
+metadata:
+  name: -plan
+spec:
+  environment:
+    GOOGLE_APPLICATION_CREDENTIALS: "/workspace/gcp-svc-acc.json"
+    CLOUDSDK_CONFIG: "/workspace/.gcloud"
+    KUBECONFIG: /workspace/.kube/k8s-config.yaml
+
+  upsert:
+    - args:
+        - container
+        - clusters
+        - get-credentials
+        - --zone=${{ .Inputs.k8sCluster.zone }}
+        - --project=${{ .Inputs.gcpProject }}
+        - ${{ .Inputs.k8sCluster.name }}
+      command: gcloud
+      condition: .Inputs.k8sCluster.zone != ""
+      image:
+        url: quay.io/evl.ms/gcloud-helm
+        version: 285.0.1
+      workDir: ${{ .Inputs.workDir }}
+      name: k8s-zonal-cluster-context
+
+    - args:
+        - container
+        - clusters
+        - get-credentials
+        - --region=${{ .Inputs.k8sCluster.region }}
+        - --project=${{ .Inputs.gcpProject }}
+        - ${{ .Inputs.k8sCluster.name }}
+      command: gcloud
+      condition: .Inputs.k8sCluster.region != ""
+      image:
+        url: quay.io/evl.ms/gcloud-helm
+        version: 285.0.1
+      workDir: ${{ .Inputs.workDir }}
+      name: k8s-regional-cluster-context
+
+  delete:
+    - args:
+        - container
+        - clusters
+        - get-credentials
+        - --zone=${{ .Inputs.k8sCluster.zone }}
+        - --project=${{ .Inputs.gcpProject }}
+        - ${{ .Inputs.k8sCluster.name }}
+      command: gcloud
+      condition: .Inputs.k8sCluster.zone != ""
+      image:
+        url: quay.io/evl.ms/gcloud-helm
+        version: 285.0.1
+      workDir: ${{ .Inputs.workDir }}
+      name: k8s-zonal-cluster-context
+
+    - args:
+        - container
+        - clusters
+        - get-credentials
+        - --region=${{ .Inputs.k8sCluster.region }}
+        - --project=${{ .Inputs.gcpProject }}
+        - ${{ .Inputs.k8sCluster.name }}
+      command: gcloud
+      condition: .Inputs.k8sCluster.region != ""
+      image:
+        url: quay.io/evl.ms/gcloud-helm
+        version: 285.0.1
+      workDir: ${{ .Inputs.workDir }}
+      name: k8s-regional-cluster-context

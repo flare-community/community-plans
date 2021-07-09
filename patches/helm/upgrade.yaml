@@ -1,0 +1,45 @@
+apiVersion: plans.flare.engineering/v1alpha1
+kind: Plan
+metadata:
+  name: -plan
+spec:
+  upsert:
+    - args:
+        - -c
+        - |
+          set -eu
+
+          helm_flags='upgrade -i --namespace ${{ .Inputs.helm.releaseNamespace }} --timeout ${{ .Inputs.helm.timeout }} --wait --debug'
+          if [ -n "$REPOSITORY_BRANCH" ]; then
+            helm_flags="$helm_flags --dry-run"
+          fi
+
+          echo 'upgrading...'
+          helm $helm_flags -f ${{ .Inputs.helm.valuesFile }} ${{ .Inputs.helm.releaseName }} .
+        command: /bin/sh
+        image:
+          url: quay.io/evl.ms/gcloud-helm
+          version: 285.0.1
+        workDir: ${{ .Inputs.workDir }}
+        name: helm-upgrade
+
+  delete:
+    - args:
+        - -c
+        - |
+          set -eu
+
+          helm_flags='uninstall --namespace ${{ .Inputs.helm.releaseNamespace }} --timeout ${{ .Inputs.helm.timeout }} --debug'
+          if [ -n "$REPOSITORY_BRANCH" ]; then
+            helm_flags="$helm_flags --dry-run"
+          fi
+
+          echo 'uninstalling...'
+          helm $helm_flags ${{ .Inputs.helm.releaseName }}
+      command: /bin/sh
+      condition: "false"
+      image:
+        url: quay.io/evl.ms/gcloud-helm
+        version: 285.0.1
+      workDir: ${{ .Inputs.workDir }}
+      name: helm-uninstall

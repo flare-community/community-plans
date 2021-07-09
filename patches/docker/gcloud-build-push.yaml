@@ -1,0 +1,34 @@
+apiVersion: plans.flare.engineering/v1alpha1
+kind: Plan
+metadata:
+  name: -plan
+spec:
+  upsert:
+    - args:
+        - -c
+        - |
+
+          RELEASE="$REPOSITORY_SHA"
+          if [ -z "$RELEASE" ]; then
+            RELEASE="$EXECUTION_ID"
+          fi
+
+          echo "Building and pushing image: ${{ .Inputs.docker.registry }}$COMPONENT_NAME:$RELEASE"
+
+          TAG="${{ .Inputs.docker.registry }}$COMPONENT_NAME:$RELEASE"
+          docker login -u oauth2accesstoken -p "$(gcloud auth print-access-token)" https://gcr.io
+          docker build -t $TAG .
+
+          if [ -z "$REPOSITORY_BRANCH" ]; then
+            echo "pushing docker image $TAG"
+            docker push $TAG
+          fi
+
+          echo -n $TAG > /workspace/checkout/release
+      command: /bin/sh
+      outputs: release
+      image:
+        url: google/cloud-sdk
+        version: 335.0.0
+      workDir: ${{ .Inputs.workDir }}
+      name: docker-build-push

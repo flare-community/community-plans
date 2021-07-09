@@ -10,7 +10,7 @@ spec:
     - name: terraform-init
       image:
         url: hashicorp/terraform
-        version: 0.15.0-rc1
+        version: 1.0.0
       command: terraform
       workDir: ${{ .Inputs.workDir }}
       args:
@@ -21,7 +21,7 @@ spec:
     - name: terraform-init
       image:
         url: hashicorp/terraform
-        version: 0.15.0-rc1
+        version: 1.0.0
       command: terraform
       workDir: ${{ .Inputs.workDir }}
       args:

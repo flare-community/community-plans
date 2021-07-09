@@ -19,7 +19,7 @@ patches:
       version: v1alpha1
       kind: Plan
       name: -plan
-    path: ../../patches/docker/build.yaml
+    path: ../../patches/docker/gcloud-build-push.yaml
 
   - target:
       group: plans.flare.engineering

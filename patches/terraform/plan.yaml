@@ -4,13 +4,26 @@ metadata:
   name: -plan
 spec:
   upsert:
-    - name: terraform-plan
-      image:
-        url: hashicorp/terraform
-        version: 0.15.0-rc1
-      command: terraform
-      workDir: ${{ .Inputs.workDir }}
-      args:
+    - args:
         - plan
         - -input=false
         - -out=$TF_PLAN_FILE
+      command: terraform
+      image:
+        url: hashicorp/terraform
+        version: 1.0.0
+      name: terraform-plan
+      workDir: ${{ .Inputs.workDir }}
+
+  delete:
+    - args:
+        - plan
+        - -input=false
+        - -destroy
+        - -out=$TF_PLAN_FILE
+      command: terraform
+      image:
+        url: hashicorp/terraform
+        version: 1.0.0
+      name: terraform-plan
+      workDir: ${{ .Inputs.workDir }}

@@ -4,15 +4,16 @@ metadata:
   name: -plan
 spec:
   upsert:
-    - name: terraform-output
-      image:
-        url: hashicorp/terraform
-        version: 0.15.0-rc1
-      workDir: ${{ .Inputs.workDir }}
-      command: /bin/sh
-      args:
+    - args:
         - -c
         - |
           set -eu
-          terraform output -json > outputs.json
+          terraform output -json > /workspace/checkout/outputs.json
+      command: /bin/sh
+      image:
+        url: hashicorp/terraform
+        version: 1.0.0
+      condition: Environment.REPOSITORY_BRANCH == ""
+      name: terraform-output
       outputs: outputs.json
+      workDir: ${{ .Inputs.workDir }}

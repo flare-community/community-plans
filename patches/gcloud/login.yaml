@@ -17,7 +17,7 @@ spec:
         - -c
         - |
           set -eu
-          printf '%s' '${{ getCipher "gcp-terraform-service-account" }}' > $GOOGLE_APPLICATION_CREDENTIALS
+          printf '%s' '${{ index .Inputs.svcAcc | getCipher }}' > $GOOGLE_APPLICATION_CREDENTIALS
           gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
 
   delete:
@@ -30,5 +30,6 @@ spec:
         - -c
         - |
           set -eu
-          printf '%s' '${{ getCipher "gcp-terraform-service-account" }}' > $GOOGLE_APPLICATION_CREDENTIALS
+          set -eu
+          printf '%s' '${{ index .Inputs.svcAcc | getCipher }}' > $GOOGLE_APPLICATION_CREDENTIALS
           gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS

@@ -4,14 +4,15 @@ metadata:
   name: -plan
 spec:
   upsert:
-    - name: terraform-apply
-      image:
-        url: hashicorp/terraform
-        version: 0.15.0-rc1
-      command: terraform
-      workDir: ${{ .Inputs.workDir }}
-      args:
+    - args:
         - apply
         - -input=false
         - -auto-approve
         - $TF_PLAN_FILE
+      command: terraform
+      image:
+        url: hashicorp/terraform
+        version: 1.0.0
+      condition: Environment.REPOSITORY_BRANCH == ""
+      name: terraform-apply
+      workDir: ${{ .Inputs.workDir }}
